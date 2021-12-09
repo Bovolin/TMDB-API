@@ -33,6 +33,7 @@ $filmes = json_decode(curl_exec($ch));
         </div>
     </section>
     <section class="container">
+        <!-- verificação se há objetos dentro do array -->
         <?php
         if(count($filmes->results)){
             $i = 0;
@@ -54,19 +55,13 @@ $filmes = json_decode(curl_exec($ch));
                     <div class="card-content has-text-centered">
                         <div class="content">
                             <h4><?=$Results->title?></h4>
-                            <p><?php echo $Results->release_date;?></p>
-                            <p>
-                                <span class="icon">
-                                    <i class="fas fa-star"></i>
-                                    <?php echo $Results->vote_average?>
-                                </span>
-                            </p>
-                            <p>
-                                <button type="button" class="btn" id="<?php echo $i ?>" onclick="aparecer(event)">Resumo</button>                                
-                            </p>
-                            <p class="escondida" id="text-<?php echo $i ?>">
-                                <?php echo $Results->overview?>
-                            </p>
+                            <div>
+                                <!-- função GET (Não concluída) -->
+                                <form action="acesso.php" method="GET">
+                                    <input type="number" name="id" value="<?=$Results->id?>" style="display: none;">
+                                    <button type="submit"> Acessar </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,22 +74,5 @@ $filmes = json_decode(curl_exec($ch));
     </section>
 
 </body>
-
-<script>
-    function aparecer(event){
-        //  console.log(event.target.id);
-        console.log(`text-${event.target.id}`);
-        if(document.getElementById(`text-${event.target.id}`).className === 'aparecida'){
-            document.getElementById(`text-${event.target.id}`).className = 'escondida';
-            console.log("Escondeu");
-        }
-
-        else{
-            document.getElementById(`text-${event.target.id}`).className = 'aparecida';
-            console.log("Apareceu");
-        }
-        
-    }
-</script>
 
 </html>
